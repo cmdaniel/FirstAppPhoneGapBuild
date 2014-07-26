@@ -49,6 +49,8 @@ Ext.application({
 
         // Initialize the main view
         Ext.Viewport.add(Ext.create('NetBeansHTML5Application.view.Main'));
+        
+        bindEvents();
     },
 
     onUpdated: function() {
@@ -61,5 +63,47 @@ Ext.application({
                 }
             }
         );
+    },
+    
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    // deviceready Event Handler
+    //
+    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+    // function, we must explicitly call 'app.receivedEvent(...);'
+    onDeviceReady: function() {
+        alert("model = " + device.model);
+        //app.receivedEvent('deviceready');
+        cameraStart();
+    },
+    // Update DOM on a Received Event
+    receivedEvent: function(id) {
+        var parentElement = document.getElementById(id);
+        var listeningElement = parentElement.querySelector('.listening');
+        var receivedElement = parentElement.querySelector('.received');
+
+        listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
+
+        console.log('Received Event: ' + id);
+        alert(id);
+    },   
+    cameraStart: function(){
+        alert('entrou');
+        navigator.camera.getPicture(app.success, app.fail,
+        {
+            quality: 50,
+            destinationType: navigator.camera.DestinationType.FILE_URI,
+            sourceType: navigator.camera.PictureSourceType.CAMERA //PHOTOLIBRARY
+        });
+    },
+    success: function (image_uri){
+        //var img = Ext.ComponentQuery.query("main image")[0];
+        //img.setSrc(image_uri);
+        alert(image_uri);
+    },
+    fail: function(message){
+        alert(message);
     }
 });
