@@ -48,6 +48,7 @@ var app = {
         console.log('Received Event: ' + id);
     },   
     cameraStart: function(){
+        alert('entrou');
         navigator.camera.getPicture(app.success, app.fail,
         {
             quality: 50,
