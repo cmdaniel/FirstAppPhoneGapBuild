@@ -46,6 +46,7 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+        alert(id);
     },   
     cameraStart: function(){
         alert('entrou');
